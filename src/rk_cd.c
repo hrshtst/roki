@@ -440,9 +440,25 @@ void rkCDColChkGJKOnly(rkCD *cd)
 
 static bool _rkCDVertNorm(zPH3D *ph, zVec3D *vert, zVec3D *norm, zVec3D *pro)
 {
+  double dist, dist_max = -HUGE_VAL;
+  int i, i_nearest = -1;
+
   zPH3DClosest( ph, vert, pro );
   _zVec3DSub( pro, vert, norm );
-  if( zVec3DIsTiny( norm ) ) return false;
+  if( zVec3DIsTiny( norm ) ){
+    /* the vertex is inside of the polyhedron, for which zPH3DClosest
+       returns the point itself; project it onto the plane of the
+       nearest face instead to have the penetration direction */
+    for( i=0; i<zPH3DFaceNum(ph); i++ )
+      if( ( dist = zTri3DDistFromPointToPlane( zPH3DFace(ph,i), vert ) ) > dist_max ){
+        dist_max = dist;
+        i_nearest = i;
+      }
+    if( i_nearest < 0 ) return false;
+    zTri3DProjPoint( zPH3DFace(ph,i_nearest), vert, pro );
+    _zVec3DSub( pro, vert, norm );
+    if( zVec3DIsTiny( norm ) ) return false;
+  }
   zVec3DNormalizeNCDRC( norm );
   return true;
 }
