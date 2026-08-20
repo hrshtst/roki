@@ -301,12 +301,14 @@ void rkCDPairVertPrint(rkCD *cd)
 rkCD *rkCDChainReg(rkCD *cd, rkChain *chain, rkCDCellType type)
 {
   zShape3DListCell *sc;
-  zVec joint_dis;
+  zVec joint_dis = NULL;
   int i;
 
-  if( !( joint_dis = zVecAlloc( rkChainJointSize(chain) ) ) ) return NULL;
-  rkChainGetJointDisAll( chain, joint_dis ); /* store configuration */
-  rkChainNeutralize( chain );
+  if( rkChainJointSize(chain) > 0 ){
+    if( !( joint_dis = zVecAlloc( rkChainJointSize(chain) ) ) ) return NULL;
+    rkChainGetJointDisAll( chain, joint_dis ); /* store configuration */
+    rkChainNeutralize( chain );
+  }
   for( i=0; i<rkChainLinkNum(chain); i++ )
     zListForEach( &rkChainLink(chain,i)->body.shapelist, sc ){
       if( !rkCDCellReg( &cd->clist, chain, rkChainLink(chain,i), sc->data, type ) )
@@ -314,8 +316,10 @@ rkCD *rkCDChainReg(rkCD *cd, rkChain *chain, rkCDCellType type)
       if( zListSize(&cd->clist) > 1 )
         _rkCDPairCellReg( cd, zListHead(&cd->clist) );
     }
-  rkChainSetJointDisAll( chain, joint_dis ); /* restore configuration */
-  zVecFree( joint_dis );
+  if( joint_dis ){
+    rkChainSetJointDisAll( chain, joint_dis ); /* restore configuration */
+    zVecFree( joint_dis );
+  }
   return cd;
 }
 
