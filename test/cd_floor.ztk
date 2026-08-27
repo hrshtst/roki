@@ -1,0 +1,21 @@
+[roki::chain]
+name : cd_floor
+
+[zeo::shape]
+type : box
+name : slab
+center : 0, 0, -0.1
+depth : 1.0
+width : 1.0
+height : 0.2
+
+[roki::link]
+name : floor
+jointtype : float
+mass : 10.0
+inertia : {
+ 1, 0, 0
+ 0, 1, 0
+ 0, 0, 1
+}
+shape : slab

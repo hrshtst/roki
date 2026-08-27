@@ -1,3 +1,5 @@
+2026.08.28. Fixed _rkCDVertReg to store and restore the contact axes of a persisting vertex with the attitude of the penetrated link (zMulMat3DTVec3D and zMulMat3DVec3D) instead of its frame: the axes are directions, and the frame transform added the link position to them once the link moved between checks. [rk_cd]
+2026.08.28. Added cd_test. [test]
 2026.05.10. Modified rkCDChainReg to store the current joint configuration of the chain to be registered in advance, neutralize the configuration, and restore the configuration after the registration. [rk_cd]
 2026.05.10. Modified rkCDColChkOBB and rkCDColChkGJK to use ternary-operator. [rk_cd]
 2026.05.10. Modified some logical conditions such as A == true and A == false in rk_cd to A and !A, respectively. [rk_cd]

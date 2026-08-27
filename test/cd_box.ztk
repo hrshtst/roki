@@ -1,0 +1,20 @@
+[roki::chain]
+name : cd_box
+
+[zeo::shape]
+type : box
+name : cube
+depth : 0.1
+width : 0.1
+height : 0.1
+
+[roki::link]
+name : box
+jointtype : float
+mass : 0.5
+inertia : {
+ 8.33e-4, 0, 0
+ 0, 8.33e-4, 0
+ 0, 0, 8.33e-4
+}
+shape : cube
