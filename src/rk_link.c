@@ -6,10 +6,6 @@
 
 #include <roki/rk_link.h>
 
-/* ********************************************************** */
-/* link class
- *//* ******************************************************* */
-
 /* initialize a link. */
 void rkLinkInit(rkLink *link)
 {
@@ -381,7 +377,7 @@ rkLinkArray *rkLinkArrayClone(rkLinkArray *org, rkLinkArray *cln, zMultiShape3D 
 }
 
 /* output information of an array of links to a file in the ZTK format. */
-void rkLinkArrayFPrintZTK(FILE *fp, rkLinkArray *linkarray)
+void rkLinkArrayFPrintZTK(FILE *fp, const rkLinkArray *linkarray)
 {
   int i;
 
@@ -655,7 +651,7 @@ rkLink *rkLinkConnectFromZTK(rkLink *link, rkLinkArray *link_array, ZTK *ztk)
 }
 
 /* print out link properties to a file in ZTK format. */
-void rkLinkFPrintZTK(FILE *fp, rkLink *link)
+void rkLinkFPrintZTK(FILE *fp, const rkLink *link)
 {
   zShape3DListCell *cp;
 
@@ -671,7 +667,7 @@ void rkLinkFPrintZTK(FILE *fp, rkLink *link)
 }
 
 /* print current 6D posture of a link out to a file. */
-void rkLinkPostureFPrint(FILE *fp, rkLink *link)
+void rkLinkPostureFPrint(FILE *fp, const rkLink *link)
 {
   fprintf( fp, "Link(name:%s joint ID offset:%d)\n", zName(link), rkLinkJointIDOffset(link) );
   fprintf( fp, " adjacent frame:\n" );
@@ -688,7 +684,7 @@ static void _rkLinkConnectivityBranchFPrint(FILE *fp, ulong branch_bit, int dept
 }
 
 /* print connectivity of a link of a kinematic chain out to a file. */
-void rkLinkConnectivityFPrint(FILE *fp, rkLink *link, rkLink *root, ulong branch_bit, int depth)
+void rkLinkConnectivityFPrint(FILE *fp, const rkLink *link, const rkLink *root, ulong branch_bit, int depth)
 {
   _rkLinkConnectivityBranchFPrint( fp, branch_bit, depth );
   fprintf( fp, "|-[%ld] %s (%s", (long)( link - root ), zName(link), rkJointTypeStr(rkLinkJoint(link)) );
@@ -706,7 +702,7 @@ void rkLinkConnectivityFPrint(FILE *fp, rkLink *link, rkLink *root, ulong branch
 }
 
 /* print external wrench applied to a link out to a file. */
-void rkLinkExtWrenchFPrint(FILE *fp, rkLink *link)
+void rkLinkExtWrenchFPrint(FILE *fp, const rkLink *link)
 {
   fprintf( fp, " force: " );
   zVec3DFPrint( fp, zVec6DLin( rkLinkExtWrench(link) ) );

@@ -350,7 +350,7 @@ static rkJoint *_rkJointPrismFromZTK(rkJoint *joint, rkMotorSpecArray *motorspec
   return rkJointPrpFromZTK( joint, motorspecarray, ztk, __ztk_prp_rkjoint_prism );
 }
 
-static void _rkJointPrismFPrintZTK(FILE *fp, rkJoint *joint, char *name)
+static void _rkJointPrismFPrintZTK(FILE *fp, const rkJoint *joint, const char *name)
 {
   _ZTKPrpKeyFPrint( fp, joint, __ztk_prp_rkjoint_prism );
 }

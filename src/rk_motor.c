@@ -81,7 +81,7 @@ rkMotorSpec *rkMotorSpecFromZTK(rkMotorSpec *ms, ZTK *ztk)
   return ms;
 }
 
-void rkMotorSpecFPrintZTK(FILE *fp, rkMotorSpec *ms)
+void rkMotorSpecFPrintZTK(FILE *fp, const rkMotorSpec *ms)
 {
   if( !ms ) return;
   _ZTKPrpKeyFPrint( fp, ms, __ztk_prp_rkmotorspec );
@@ -136,7 +136,7 @@ rkMotorSpec *rkMotorSpecArrayFind(rkMotorSpecArray *msarray, const char *name)
   return ms;
 }
 
-void rkMotorSpecArrayFPrintZTK(FILE *fp, rkMotorSpecArray *msarray)
+void rkMotorSpecArrayFPrintZTK(FILE *fp, const rkMotorSpecArray *msarray)
 {
   int i;
 

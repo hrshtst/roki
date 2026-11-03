@@ -376,7 +376,7 @@ static rkJoint *_rkJointCylinFromZTK(rkJoint *joint, rkMotorSpecArray *motorspec
   return rkJointPrpFromZTK( joint, motorspecarray, ztk, __ztk_prp_rkjoint_cylin );
 }
 
-static void _rkJointCylinFPrintZTK(FILE *fp, rkJoint *joint, char *name)
+static void _rkJointCylinFPrintZTK(FILE *fp, const rkJoint *joint, const char *name)
 {
   _ZTKPrpKeyFPrint( fp, joint, __ztk_prp_rkjoint_cylin );
 }
